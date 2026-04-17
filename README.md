@@ -42,14 +42,18 @@ The code uses the following material properties:
 The infinitesimal strain tensor is defined as:
 $$\boldsymbol{\varepsilon}(\mathbf{u}) = \frac{1}{2} \left[ \nabla \mathbf{u} + (\nabla \mathbf{u})^T \right]$$
 
-To model anisotropic damage (cracks only grow under tension/shear), the strain is decomposed into a deviatoric part ($\boldsymbol{\varepsilon}_{dev}$) and a volumetric trace. The elastic strain energy density is split into active ($\psi^+$) and passive ($\psi^-$) components:
-$$\psi^+ = \frac{1}{2} K_0 \langle \text{tr}(\boldsymbol{\varepsilon}) \rangle_+^2 + \mu (\boldsymbol{\varepsilon}_{dev} : \boldsymbol{\varepsilon}_{dev})$$
-$$\psi^- = \frac{1}{2} K_0 \langle \text{tr}(\boldsymbol{\varepsilon}) \rangle_-^2$$
+To model anisotropic damage (cracks only grow under tension/shear), the strain is decomposed into a deviatoric part ($\varepsilon_{dev}$) and a volumetric trace. The elastic strain energy density is split into active ($\psi^+$) and passive ($\psi^-$) components:
+
+$$\psi^+ = \frac{1}{2} K_0 \langle \mathrm{tr}(\varepsilon) \rangle_+^2 + \mu (\varepsilon_{dev} : \varepsilon_{dev})$$
+
+$$\psi^- = \frac{1}{2} K_0 \langle \mathrm{tr}(\varepsilon) \rangle_-^2$$
+
 Where $K_0 = \lambda + \mu$ is the effective bulk modulus for plane assumptions, $\mu$ is the shear modulus, and $\langle \cdot \rangle_{\pm}$ denotes the Macaulay brackets.
 
 ### 2. Displacement Formulation (Linear Momentum)
 Damage degrades only the active part of the strain energy. The degradation function follows the standard AT2 formulation: $g(d) = (1-d)^2 + k_{res}$. The Cauchy stress tensor is:
-$$\boldsymbol{\sigma} = [(1-d)^2 + k_{res}] \left( K_0 \langle \text{tr}(\boldsymbol{\varepsilon}) \rangle_+ \mathbf{I} + 2\mu \boldsymbol{\varepsilon}_{dev} \right) + K_0 \langle \text{tr}(\boldsymbol{\varepsilon}) \rangle_- \mathbf{I}$$
+
+$$\sigma = [(1-d)^2 + k_{res}] \left( K_0 \langle \mathrm{tr}(\varepsilon) \rangle_+ \mathbf{I} + 2\mu \varepsilon_{dev} \right) + K_0 \langle \mathrm{tr}(\varepsilon) \rangle_- \mathbf{I}$$
 
 The weak form solved for the displacement $\mathbf{u}$ with test function $\mathbf{v}$ is:
 $$\int_{\Omega} \boldsymbol{\sigma} : \boldsymbol{\varepsilon}(\mathbf{v}) \, d\mathbf{x} = 0$$
